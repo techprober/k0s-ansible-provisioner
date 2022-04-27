@@ -1,0 +1,22 @@
+on:
+  push:
+    paths:
+    - '**.yml'
+
+
+name: Ansible Lint
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Lint Ansible Playbook
+        uses: ansible/ansible-lint-action@master
+        with:
+          targets: |
+            provision.yml
+            reset.yml
+
