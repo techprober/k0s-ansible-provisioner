@@ -12,7 +12,7 @@
       <img src="https://img.shields.io/tokei/lines/github/TechProber/k0s-ansible-provisioner?color=blueviolet" alt="lines">
     </a>
     <a href="https://kubernetes.io/">
-        <img src="https://img.shields.io/badge/kubernetes-v1.23-navy.svg" alt="Kubernetes"/>
+        <img src="https://img.shields.io/badge/kubernetes-v1.23.5+k0s.1-navy.svg" alt="Kubernetes"/>
     </a>
     <a href="https://github.com/TechProber/k0s-ansible-provisioner">
         <img src="https://img.shields.io/github/last-commit/TechProber/k0s-ansible-provisioner" alt="lastcommit"/>
@@ -26,6 +26,10 @@ CopyRight 2022 TechProber. All rights reserved.
 Maintainer: [ Kevin Yu (@yqlbu) ](https://github.com/yqlbu)
 
 This repo serves to provide the end-users a way to provision a Kubernetes Cluster in minutes. Multiple mode are supported, including HA setup.
+
+## References
+
+- [movd/k0s-ansible](https://github.com/movd/k0s-ansible)
 
 ## License
 
