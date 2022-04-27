@@ -1,0 +1,32 @@
+---
+all:
+  children:
+    initial_controller:
+      hosts:
+        k8s-master-1:
+    controller:
+      hosts:
+        k8s-master-2:
+        k8s-master-3:
+    worker:
+      hosts:
+        k8s-worker-1:
+        k8s-worker-2:
+        k8s-worker-3:
+        k8s-worker-4:
+        k8s-worker-5:
+  hosts:
+    k8s-master-1:
+      ansible_host: 140.40.0.101
+    k8s-master-2:
+      ansible_host: 140.40.0.102
+    k8s-master-3:
+      ansible_host: 140.40.0.103
+    k8s-worker-1:
+      ansible_host: 140.40.0.111
+    k8s-worker-2:
+      ansible_host: 140.40.0.112
+    k8s-worker-3:
+      ansible_host: 140.40.0.113
+  vars:
+    ansible_user: k0s
