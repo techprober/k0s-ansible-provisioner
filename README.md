@@ -1,6 +1,6 @@
 <h1 align="center">K0S Ansible Provisioner</h1>
 <p align="center">
-    <em>Bootstrap Kubernetes in Minutes</em>
+    <em>Bootstrap Kubernetes Cluster in Minutes</em>
 </p>
 
 <p align="center">
