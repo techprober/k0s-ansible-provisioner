@@ -56,3 +56,9 @@
     tags:
     - k0s-ops
     - worker-ops
+
+- name: Export k0s kubeconfig
+  hosts: initial_controller
+
+  roles:
+  - role: post.ops/
