@@ -7,10 +7,16 @@
     group: "{{ ansible_user }}"
     mode: 0600
 
+- name: Check if k0sworker service already exists
+  stat:
+    path: /etc/systemd/system/k0sworker.service
+  register: is_k0sworker_service_exist
+
 - name: Create k0s worker service with install command
   register: install_worker_cmd
-  command: k0s install worker --config {{ k0s_config_dir }}/k0s.yaml --token-file {{ k0s_config_dir }}/worker-token {{ extra_args | default(omit) }}
+  shell: "k0s install worker --token-file {{ k0s_config_dir }}/worker-token {{ extra_args | default(omit) }}"
   changed_when: install_worker_cmd | length > 0
+  when: not is_k0sworker_service_exist.stat.exists
 
 - name: Enable and check k0s service
   become: true
