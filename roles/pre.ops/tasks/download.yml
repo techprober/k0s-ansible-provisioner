@@ -1,7 +1,7 @@
 ---
 - name: Check if k0s is already installed
   stat:
-    path: /usr/bin/k0s
+    path: /usr/local/bin/k0s
   register: is_k0s_installed
 
 - name: Install k0s using script
