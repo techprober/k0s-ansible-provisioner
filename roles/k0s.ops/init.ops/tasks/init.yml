@@ -79,11 +79,3 @@
     path: ~{{ ansible_user }}/k0s-kubeconfig.yml
     regexp: 'localhost'
     replace: "{{ ansible_host }}"
-
-- name: Copy kubeconfig
-  fetch:
-    src: "~{{ ansible_user }}/k0s-kubeconfig.yml"
-    dest: "{{ artifacts_dir }}/k0s-kubeconfig.yml"
-    flat: yes
-    validate_checksum: no
-  become: no
