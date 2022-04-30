@@ -1,22 +1,28 @@
 ---
-- name: Download k0s on all nodes
+- name: Install k0s on all nodes
   hosts: all
   become: yes
 
   vars:
-    k0s_version: v1.23.5+k0s.1
+  - k0s_version: v1.23.6+k0s.0
 
   roles:
     - role: pre.ops/
       tags: pre-ops
 
 - name: Write/generate k0s config file on control plane node
-  hosts: controller
+  hosts:
+  - initial_controller
+  - controller
   gather_facts: yes
   become: yes
-  
+
+  vars:
+  - loadbalancer_host: 10.140.40.119
+  - k0s_use_custom_config: true
+
   roles:
-    - role: k0s.ops/configure.ops/
+  - role: k0s.ops/configure.ops/
 
 - name: Configure initial k0s control plane node
   hosts: initial_controller
@@ -24,10 +30,10 @@
   become: yes
 
   roles:
-    - role: k0s.ops/init.ops/
-      tags: 
-        - k0s-ops
-        - init-ops
+  - role: k0s.ops/init.ops/
+    tags:
+    - k0s-ops
+    - init-ops
 
 - name: Configure k0s control plane (master) nodes
   hosts: controller
@@ -36,17 +42,17 @@
   serial: 1
 
   roles:
-    - role: k0s.ops/controller.ops/
-      tags:
-        - k0s-ops
-        - controller-ops
+  - role: k0s.ops/controller.ops/
+    tags:
+    - k0s-ops
+    - controller-ops
 
 - name: Configure k0s worker nodes
   hosts: worker
   become: yes
 
   roles:
-    - role: k0s.ops/worker.ops/
-      tags: 
-        - k0s-ops
-        - worker-ops
+  - role: k0s.ops/worker.ops/
+    tags:
+    - k0s-ops
+    - worker-ops
