@@ -1,7 +1,7 @@
 ---
 - name: Create k0s Directories
   become: true
-  ansible.builtin.file:
+  file:
     path: "{{ item }}"
     state: directory
     mode: 0755
@@ -13,7 +13,7 @@
     - "{{ k0s_libexec_dir }}"
 
 - name: Write the custom k0s config file
-  ansible.builtin.template:
+  template:
     src: k0s.yaml.j2
     dest: "{{ k0s_config_dir }}/k0s.yaml"
     owner: "{{ ansible_user }}"
