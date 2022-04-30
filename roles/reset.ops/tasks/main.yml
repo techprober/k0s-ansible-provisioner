@@ -1,3 +1,2 @@
 ---
 - include_tasks: reset.yml
-- include_tasks: umount-with-children.yml
