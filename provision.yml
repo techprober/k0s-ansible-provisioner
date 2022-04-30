@@ -60,5 +60,8 @@
 - name: Export k0s kubeconfig
   hosts: initial_controller
 
+  vars:
+  - context_name: staging
+
   roles:
   - role: post.ops/
