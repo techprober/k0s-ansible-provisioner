@@ -5,3 +5,4 @@
 
   roles:
     - role: reset.ops/
+      tags: reset-ops
