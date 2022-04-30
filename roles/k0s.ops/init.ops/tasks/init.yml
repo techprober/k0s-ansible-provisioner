@@ -1,5 +1,5 @@
 ---
-- name: Check if controller service already exists
+- name: Check if k0scontroller service already exists
   stat:
     path: /etc/systemd/system/k0scontroller.service
   register: is_k0scontroller_service_exist
