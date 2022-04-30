@@ -87,7 +87,3 @@
     flat: yes
     validate_checksum: no
   become: no
-
-- name: "print kubeconfig command"
-  debug:
-    msg: "To use Cluster: export KUBECONFIG={{ artifacts_dir }}/k0s-kubeconfig.yml"

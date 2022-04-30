@@ -1,0 +1,4 @@
+---
+- name: "print kubeconfig command"
+  debug:
+    msg: "To use Cluster: export KUBECONFIG={{ artifacts_dir }}/config"
