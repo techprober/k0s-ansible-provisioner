@@ -1,8 +1,14 @@
 ---
+- name: Check if controller service already exists
+  stat:
+    path: /etc/systemd/system/k0scontroller.service
+  register: is_k0scontroller_service_exist
+
 - name: Create k0s initial controller service with install command
   register: install_initial_controller_cmd
-  command: k0s install controller --config {{ k0s_config_dir }}/k0s.yaml {{ extra_args | default(omit) }}
+  shell: "k0s install controller --config {{ k0s_config_dir }}/k0s.yaml {{ extra_args | default(omit) }}"
   changed_when: install_initial_controller_cmd | length > 0
+  when: not is_k0scontroller_service_exist.stat.exists
 
 - name: Setup custom environment variables for systemd unit
   include_role:
@@ -24,7 +30,7 @@
 
 - name: Create worker join token
   register: worker_join_token
-  command: k0s token create --role worker  --config {{ k0s_config_dir }}/k0s.yaml
+  shell: "k0s token create --role=worker --expiry=1h"
   changed_when: worker_join_token | length > 0
 
 - name: Store worker join token
@@ -43,7 +49,7 @@
 
 - name: Create controller join token
   register: controller_join_token
-  command: k0s token create --role controller --config {{ k0s_config_dir }}/k0s.yaml
+  shell: "k0s token create --role=controller --expiry=1h"
   changed_when: controller_join_token | length > 0
 
 - name: Store controller join token

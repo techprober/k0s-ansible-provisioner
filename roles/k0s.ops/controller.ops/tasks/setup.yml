@@ -7,10 +7,16 @@
     group: "{{ ansible_user }}"
     mode: 0600
 
+- name: Check if controller service already exists
+  stat:
+    path: /etc/systemd/system/k0scontroller.service
+  register: is_k0scontroller_service_exist
+
 - name: Create k0s controller service with install command
   register: install_controller_cmd
-  command: k0s install controller --config {{ k0s_config_dir }}/k0s.yaml --token-file {{ k0s_config_dir }}/controller-token {{ extra_args | default(omit) }}
+  shell: "k0s install controller --config {{ k0s_config_dir }}/k0s.yaml --token-file {{ k0s_config_dir }}/controller-token {{ extra_args | default(omit) }}"
   changed_when: install_controller_cmd | length > 0
+  when: not is_k0scontroller_service_exist.stat.exists
 
 - name: Setup custom environment variables for systemd unit
   include_role:
