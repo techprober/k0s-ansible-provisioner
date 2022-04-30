@@ -30,7 +30,7 @@
 
 - name: Create worker join token
   register: worker_join_token
-  shell: "k0s token create --role=worker --expiry=10m"
+  shell: "k0s token create --role=worker --expiry={{ token_expiry }}"
   changed_when: worker_join_token | length > 0
 
 - name: Store worker join token
@@ -49,7 +49,7 @@
 
 - name: Create controller join token
   register: controller_join_token
-  shell: "k0s token create --role=controller --expiry=10m"
+  shell: "k0s token create --role=controller --expiry={{ token_expiry }}"
   changed_when: controller_join_token | length > 0
 
 - name: Store controller join token
