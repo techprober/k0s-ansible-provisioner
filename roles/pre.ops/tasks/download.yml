@@ -1,13 +1,9 @@
 ---
-- name: Verify k0s installation
-  become: true
-  block:
-    - name: Check if k0s is installed
-      shell: "command -v k0s"
-      register: is_k0s_installed
-      changed_when: false
-      failed_when: is_k0s_installed.rc != 0
+- name: Check if k0s is already installed
+  stat:
+    path: /usr/bin/k0s
+  register: is_k0s_installed
 
-  rescue:
-  - name: Install k0s using script
-    shell: "curl -fsSL https://get.k0s.sh | sudo K0S_VERSION={{ k0s_version }} sh"
+- name: Install k0s using script
+  shell: "curl -fsSL https://get.k0s.sh | sudo K0S_VERSION={{ k0s_version }} sh"
+  when: not is_k0s_installed.stat.exists
