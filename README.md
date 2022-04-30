@@ -12,7 +12,7 @@
       <img src="https://img.shields.io/tokei/lines/github/TechProber/k0s-ansible-provisioner?color=lightgrey" alt="lines">
     </a>
     <a href="https://kubernetes.io/">
-        <img src="https://img.shields.io/badge/kubernetes-v1.23.5+k0s.1-navy.svg" alt="Kubernetes"/>
+        <img src="https://img.shields.io/badge/kubernetes-v1.23.6+k0s.0-navy.svg" alt="Kubernetes"/>
     </a>
     <a href="https://github.com/TechProber/k0s-ansible-provisioner">
         <img src="https://img.shields.io/github/last-commit/TechProber/k0s-ansible-provisioner" alt="lastcommit"/>
