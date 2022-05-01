@@ -8,10 +8,10 @@
   - k0s_use_custom_config: true
 
   roles:
-    - role: pre.ops/
-      tags: pre-ops
-    - role: extra.ops/cni-plugin.ops/
-      tags: extra-ops
+  - role: pre.ops/
+    tags: pre-ops
+  - role: extra.ops/cni-plugins.ops/
+    tags: extra-ops
 
 - name: Write/generate k0s config file on control plane node
   hosts:
