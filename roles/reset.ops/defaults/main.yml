@@ -4,4 +4,5 @@ k0s_config_dir: /etc/k0s
 k0s_data_dir: /var/lib/k0s
 k0s_libexec_dir: /usr/libexec/k0s/
 cni_plugins_dir: /opt/cni/bin
+cni_config_dir: /etc/cni/net.d
 k0s_use_custom_config: false
