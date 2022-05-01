@@ -1,5 +1,5 @@
 ---
-- name: Install k0s on all nodes
+- name: Pre-requisites check on all nodes
   hosts: all
   become: yes
 
