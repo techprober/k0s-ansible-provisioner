@@ -9,6 +9,10 @@
     - k0scontroller
     - k0sworker
 
+- name: daemon_reload
+  systemd:
+    daemon_reload: yes
+
 - name: Umount k0s filesystems
   include_tasks: umount-with-children.yml
   with_items:
@@ -18,7 +22,6 @@
     loop_var: mounted_fs
 
 - name: Remove k0s Directories
-  become: true
   file:
     path: "{{ item }}"
     state: absent
@@ -31,6 +34,10 @@
     - "{{ systemd_dest }}/k0scontroller.service"
     - "{{ systemd_dest }}/k0sworker.service"
 
-- name: daemon_reload
-  systemd:
-    daemon_reload: yes
+- name: Invoke the reset command
+  shell: "k0s reset"
+
+- name: Reboot nodes
+  reboot:
+    msg: "Reboot initiated by Ansible"
+    reboot_timeout: 120
