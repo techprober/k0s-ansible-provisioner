@@ -9,10 +9,6 @@
     - k0scontroller
     - k0sworker
 
-- name: daemon_reload
-  systemd:
-    daemon_reload: yes
-
 - name: Umount k0s filesystems
   include_tasks: umount-with-children.yml
   with_items:
@@ -34,8 +30,9 @@
     - "{{ systemd_dest }}/k0scontroller.service"
     - "{{ systemd_dest }}/k0sworker.service"
 
-- name: Invoke the reset command
-  shell: "k0s reset"
+- name: daemon_reload
+  systemd:
+    daemon_reload: yes
 
 - name: Reboot nodes
   reboot:
