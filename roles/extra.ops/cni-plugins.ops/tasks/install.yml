@@ -1,7 +1,7 @@
 ---
 - name: Check of cni-plugins already installed
   stat:
-    path: /opt/cni/bin
+    path: /opt/cni/bin/*
   register: is_cni_plugins_installed
 
 - name: Install cni-plugins
