@@ -16,13 +16,28 @@ spec:
   extensions:
     helm:
       repositories:
+      - name: stable
+        url: https://charts.helm.sh/stable
+      - name: prometheus-community
+        url: https://prometheus-community.github.io/helm-charts
       - name: cilium
         url: https://helm.cilium.io
       charts:
       - name: cilium
         chartname: cilium/cilium
-        version: "1.11.4"
         namespace: kube-system
+        version: "1.11.4"
+      - name: prometheus-stack
+        chartname: prometheus-community/kube-prometheus-stack
+        namespace: prometheus
+        version: "14.6.1"
+        values: |
+          alertmanager:
+            persistentVolume:
+              enabled: false
+          server:
+            persistentVolume:
+              enabled: false
     storage:
       create_default_storage_class: false
       type: external_storage
