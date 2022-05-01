@@ -66,13 +66,9 @@ spec:
     dualStack: {}
     kubeProxy:
       mode: ipvs
-    kuberouter:
-      autoMTU: true
-      mtu: 0
-      peerRouterASNs: ""
-      peerRouterIPs: ""
+    kuberouter: null
     podCIDR: 10.244.0.0/16
-    provider: kuberouter
+    provider: custom
     serviceCIDR: 10.96.0.0/12
   podSecurityPolicy:
     defaultPolicy: 00-k0s-privileged
@@ -84,4 +80,14 @@ spec:
     type: etcd
   telemetry:
     enabled: true
+  extensions:
+    helm:
+      repositories:
+      - name: stable
+        url: https://helm.cilium.io/
+      charts:
+      - name: cilium
+        chartname: cilium/cilium
+        version: "1.11.4"
+        namespace: kube-system
 status: {}
