@@ -29,7 +29,7 @@
           ansible_facts.architecture is search("aarch64")
 
     - name: Extract cni-plugin binaries
-      shell: "tar xzvf cni-plugins.tgz -C /opt/cni/bin/"
+      shell: "tar xzvf /opt/cni/bin/cni-plugins.tgz -C /opt/cni/bin/"
 
     - name: Change ownership and permission for /opt/cni/bin
       file:
