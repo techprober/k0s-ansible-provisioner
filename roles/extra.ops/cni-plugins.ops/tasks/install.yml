@@ -33,11 +33,10 @@
 
     - name: Change ownership and permission for /opt/cni/bin
       file:
-        path: /opt/cni/bin
+        path: /opt/cni/bin/
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: 0755
-        recursive: true
 
     - name: Remove the source tar file
       file:
