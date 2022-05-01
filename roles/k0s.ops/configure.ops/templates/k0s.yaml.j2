@@ -40,7 +40,7 @@ spec:
       version: 0.0.30-k0s
     kubeproxy:
       image: k8s.gcr.io/kube-proxy
-      version: v1.23.5
+      version: v1.23.6
     kuberouter:
       cni:
         image: docker.io/cloudnativelabs/kube-router
@@ -62,18 +62,17 @@ spec:
     adminPort: 8133
     agentPort: 8132
   network:
-    calico:
-      mode: vxlan
-      overlay: Never
-      wireguard: false
+    calico: null
     dualStack: {}
     kubeProxy:
       mode: ipvs
-      ipvs:
-        strictARP: true
-    kuberouter: null
+    kuberouter:
+      autoMTU: true
+      mtu: 0
+      peerRouterASNs: ""
+      peerRouterIPs: ""
     podCIDR: 10.244.0.0/16
-    provider: calico
+    provider: kuberouter
     serviceCIDR: 10.96.0.0/12
   podSecurityPolicy:
     defaultPolicy: 00-k0s-privileged
