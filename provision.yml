@@ -5,10 +5,13 @@
 
   vars:
   - k0s_version: v1.23.6+k0s.0
+  - k0s_use_custom_config: true
 
   roles:
     - role: pre.ops/
       tags: pre-ops
+    - role: extra.ops/cni-plugin.ops/
+      tags: extra-ops
 
 - name: Write/generate k0s config file on control plane node
   hosts:
