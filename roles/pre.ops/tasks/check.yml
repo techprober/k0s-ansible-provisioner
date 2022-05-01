@@ -1,0 +1,24 @@
+---
+- name: Pre-requisites Check
+  block:
+    - name: Check if k0s is already installed
+      shell: "command -v k0s >/dev/null 2>&1"
+      register: is_k0s_installed
+      failed_when: is_k0s_installed.rc != 0
+      no_log: true
+
+    - name: Check if /etc/k0s already exists
+      stat:
+        path: /etc/k0s
+      register: is_k0s_config_exists
+      failed_when: not is_k0s_config_exists.stat.exists
+
+    - name: Check if /var/lib/k0s already exists
+      stat:
+        path: /var/lib/k0s
+      register: is_k0s_data_exists
+      failed_when: not is_k0s_data_exists.stat.exists
+
+  rescue:
+    - name: Install k0s using script
+      shell: "curl -fsSL https://get.k0s.sh | sudo K0S_VERSION={{ k0s_version }} sh"

@@ -1,9 +1,0 @@
----
-- name: Check if k0s is already installed
-  stat:
-    path: /usr/local/bin/k0s
-  register: is_k0s_installed
-
-- name: Install k0s using script
-  shell: "curl -fsSL https://get.k0s.sh | sudo K0S_VERSION={{ k0s_version }} sh"
-  when: not is_k0s_installed.stat.exists
