@@ -3,9 +3,6 @@
   gather_facts: yes
   become: yes
 
-  vars:
-  - k0s_use_custom_config: true
-
   roles:
     - role: reset.ops/
       tags: reset-ops
