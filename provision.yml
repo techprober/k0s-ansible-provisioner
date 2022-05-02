@@ -3,9 +3,6 @@
   hosts: all
   become: yes
 
-  vars:
-  - k0s_version: v1.23.6+k0s.0
-
   roles:
     - role: pre.ops/
       tags: pre-ops
@@ -16,10 +13,6 @@
   - controller
   gather_facts: yes
   become: yes
-
-  vars:
-  - loadbalancer_host: 10.140.40.119
-  - k0s_use_custom_config: true
 
   roles:
   - role: k0s.ops/configure.ops/
@@ -59,9 +52,6 @@
 
 - name: Export k0s kubeconfig
   hosts: initial_controller
-
-  vars:
-  - context_name: staging
 
   roles:
   - role: post.ops/
