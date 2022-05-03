@@ -1,6 +1,7 @@
 ---
 # custom config
 k0s_use_custom_config: true
+init_extra_args: "--disable-components kube-proxy"
 
 # HA config
 loadbalancer_host: 10.140.40.119
