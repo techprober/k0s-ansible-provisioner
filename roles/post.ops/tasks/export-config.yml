@@ -1,7 +1,7 @@
 ---
 - name: Copy kubeconfig
   fetch:
-    src: "~{{ ansible_user }}/k0s-kubeconfig.yml"
+    src: "~/{{ ansible_user }}/k0s-kubeconfig.yml"
     dest: "{{ artifacts_dir }}/{{ context_name }}-k0s"
     flat: yes
     validate_checksum: no
