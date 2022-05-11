@@ -69,7 +69,7 @@
 - name: Copy config file to user home directory
   copy:
     src: "{{ k0s_data_dir }}/pki/admin.conf"
-    dest: ~/{{ ansible_user }}/k0s-kubeconfig.yml
+    dest: ~{{ ansible_user }}/k0s-kubeconfig.yml
     remote_src: yes
     owner: "{{ ansible_user }}"
     mode: 0644
