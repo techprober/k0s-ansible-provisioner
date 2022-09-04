@@ -15,7 +15,7 @@
 
 CopyRight 2022 TechProber. All rights reserved.
 
-Maintainer: [ Kevin Yu (@yqlbu) ](https://github.com/yqlbu)
+Maintainers: [ Kevin Yu (@yqlbu) ](https://github.com/yqlbu), [ Shi Kun (@kunish) ](https://github.com/kunish)
 
 This repo serves to provide the end-users a way to provision a Kubernetes Cluster in minutes. Multiple mode are supported, including HA setup.
 
