@@ -43,6 +43,7 @@
     tags:
     - k0s-ops
     - controller-ops
+    when: not single_node
 
 - name: Configure k0s worker nodes
   hosts: worker
@@ -53,6 +54,7 @@
     tags:
     - k0s-ops
     - worker-ops
+    when: not single_node
 
 - name: Export k0s kubeconfig
   hosts: initial_controller
