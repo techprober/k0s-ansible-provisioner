@@ -1,0 +1,46 @@
+---
+- name: Pre-requisites Check
+  block:
+    - name: Check if k0s is already installed
+      shell: "command -v k0s >/dev/null 2>&1"
+      register: is_k0s_installed
+      failed_when: is_k0s_installed.rc != 0
+      check_mode: false
+      no_log: true
+
+    - name: Check if /etc/k0s already exists
+      stat:
+        path: "{{ k0s_config_dir }}"
+      register: is_k0s_config_exists
+      check_mode: false
+      failed_when: not is_k0s_config_exists.stat.exists
+
+    - name: Check if /var/lib/k0s already exists
+      stat:
+        path: "{{ k0s_data_dir }}"
+      register: is_k0s_data_exists
+      check_mode: false
+      failed_when: not is_k0s_data_exists.stat.exists
+
+  rescue:
+    - name: Download k0s binary k0s-{{ k0s_version }}-amd64
+      get_url:
+        url: https://ghproxy.com/https://github.com/k0sproject/k0s/releases/download/{{ k0s_version }}/k0s-{{ k0s_version }}-amd64
+        dest: "{{ k0s_binary_path }}"
+      when: item == "x86_64"
+      with_items: "{{ ansible_facts.architecture }}"
+
+    - name: Download k0s binary k0s-{{ k0s_version }}-arm64
+      get_url:
+        url: https://github.com/k0sproject/k0s/releases/download/{{ k0s_version }}/k0s-{{ k0s_version }}-arm64
+        dest: "{{ k0s_binary_path }}"
+      when: item == "aarch64"
+      with_items: "{{ ansible_facts.architecture }}"
+
+    - name: Modify file permission
+      file:
+        path: "{{ k0s_binary_path }}"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        state: file
+        mode: 0755
