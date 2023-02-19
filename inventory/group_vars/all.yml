@@ -9,6 +9,7 @@ loadbalancer_host: 10.140.40.119
 # provision, reset
 context_name: staging
 k0s_version: v1.23.6+k0s.0
+token_expiry: "10m"
 k0s_config_dir: /etc/k0s
 k0s_data_dir: /var/lib/k0s
 k0s_libexec_dir: /usr/libexec/k0s/
