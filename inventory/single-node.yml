@@ -1,0 +1,20 @@
+---
+single-node:
+  children:
+    initial_controller:
+      hosts:
+        k0s-node:
+    controller:
+      hosts:
+        k0s-node:
+    worker:
+      hosts:
+        k0s-node:
+
+  hosts:
+    k0s-node:
+      ansible_host: 10.140.40.11
+
+  vars:
+    ansible_user: packer
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa_yubikey.pub

@@ -1,15 +1,14 @@
 ---
 # custom config
-k0s_use_custom_config: true
-init_extra_args: "--disable-components kube-proxy"
-
-# HA config
-loadbalancer_host: 10.140.40.119
+k0s_use_custom_config: false
+# single_node
+single_node: true
+init_extra_args: "--single"
 
 # provision, reset
 context_name: staging
-k0s_version: v1.23.6+k0s.0
-token_expiry: "10m"
+k0s_version: v1.26.1+k0s.0
+k0s_binary_path: /usr/local/bin/k0s
 k0s_config_dir: /etc/k0s
 k0s_data_dir: /var/lib/k0s
 k0s_libexec_dir: /usr/libexec/k0s/
