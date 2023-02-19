@@ -6,7 +6,7 @@
 
 - name: Create k0s initial controller service with install command
   register: install_initial_controller_cmd
-  shell: "k0s install controller --config {{ k0s_config_dir }}/k0s.yaml {{ extra_args | default(omit) }}"
+  shell: "k0s install controller --config {{ k0s_config_dir }}/k0s.yaml {{ init_extra_args | default(omit) }}"
   changed_when: install_initial_controller_cmd | length > 0
   when: not is_k0scontroller_service_exist.stat.exists
 

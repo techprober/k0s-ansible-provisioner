@@ -1,0 +1,44 @@
+---
+- name: Check of cni-plugins already installed
+  stat:
+    path: /opt/cni/bin/*
+  register: is_cni_plugins_installed
+
+- name: Install cni-plugins
+  when: not is_cni_plugins_installed.stat.exists
+  block:
+    - name: Download cni-plugins from release (amd64)
+      get_url:
+        url: https://github.com/containernetworking/plugins/releases/download/{{ cni_plugin_version }}/cni-plugins-linux-amd64-{{ cni_plugin_version }}.tgz
+        dest: /opt/cni/bin/cni-plugins.tgz
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0755
+      when: ansible_facts.architecture == "x86_64"
+
+    - name: Download cni-plugins from release (arm64)
+      get_url:
+        url: https://github.com/containernetworking/plugins/releases/download/{{ cni_plugin_version }}/cni-plugins-linux-arm64-{{ cni_plugin_version }}.tgz
+        dest: "{{ k0s_binary_dest }}"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0755
+      when:
+        - ( ansible_facts.architecture is search("arm") and
+            ansible_facts.userspace_bits == "64" ) or
+          ansible_facts.architecture is search("aarch64")
+
+    - name: Extract cni-plugin binaries
+      shell: "tar xzvf /opt/cni/bin/cni-plugins.tgz -C /opt/cni/bin/"
+
+    - name: Change ownership and permission for /opt/cni/bin
+      file:
+        path: /opt/cni/bin/
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0755
+
+    - name: Remove the source tar file
+      file:
+        path: /opt/cni/bin/cni-plugins.tgz
+        state: absent
