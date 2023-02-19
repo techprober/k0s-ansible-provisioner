@@ -38,6 +38,13 @@
     - "{{ cni_plugins_dir }}"
     - "{{ cni_config_dir }}"
 
+- name: Remove artifacts
+  delegate_to: localhost
+  file:
+    dest: "{{ artifacts_dir }}/{{ context_name }}-k0s"
+    state: absent
+  become: false
+
 - name: daemon_reload
   systemd:
     daemon_reload: yes
