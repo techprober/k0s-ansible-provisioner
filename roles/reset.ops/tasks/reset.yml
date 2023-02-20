@@ -45,11 +45,16 @@
     state: absent
   become: false
 
+- name: Remove k0s binary
+  file:
+    dest: "{{ k0s_binary_path }}"
+    state: absent
+
 - name: daemon_reload
   systemd:
     daemon_reload: yes
 
-- name: Reboot nodes
+- name: Reboot node(s)
   reboot:
     msg: "Reboot initiated by Ansible"
     reboot_timeout: 120
