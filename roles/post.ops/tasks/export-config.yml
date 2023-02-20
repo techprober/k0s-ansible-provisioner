@@ -2,10 +2,10 @@
 - name: Copy kubeconfig
   fetch:
     src: "~{{ ansible_user }}/k0s-kubeconfig.yml"
-    dest: "{{ artifacts_dir }}/{{ context_name }}-k0s"
+    dest: "{{ artifacts_dir }}/{{ context_name }}-k0s-config"
     flat: yes
     validate_checksum: no
 
 - name: "print kubeconfig command"
   debug:
-    msg: "To use Cluster: export KUBECONFIG={{ artifacts_dir }}/{{ context_name }}-k0s"
+    msg: "To use Cluster: export KUBECONFIG={{ artifacts_dir }}/{{ context_name }}-k0s-config"

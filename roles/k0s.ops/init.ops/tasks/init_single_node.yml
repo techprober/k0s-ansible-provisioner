@@ -1,0 +1,43 @@
+---
+- name: Check if k0scontroller service already exists
+  stat:
+    path: /etc/systemd/system/k0scontroller.service
+  register: is_k0scontroller_service_exist
+
+- name: Create k0s initial controller service with install command
+  register: install_initial_controller_cmd
+  shell: "k0s install controller --config {{ k0s_config_dir }}/k0s.yaml {{ init_extra_args | default(omit) }}"
+  changed_when: install_initial_controller_cmd | length > 0
+  when: not is_k0scontroller_service_exist.stat.exists
+
+- name: Setup custom environment variables for systemd unit
+  include_role:
+    name: set-env.ops
+
+- name: Enable and check k0s service
+  systemd:
+    name: k0scontroller
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+
+- name: Wait for k8s apiserver
+  wait_for:
+    host: localhost
+    port: 6443
+    delay: 15
+    timeout: 180
+
+- name: Copy config file to user home directory
+  copy:
+    src: "{{ k0s_data_dir }}/pki/admin.conf"
+    dest: ~{{ ansible_user }}/k0s-kubeconfig.yml
+    remote_src: yes
+    owner: "{{ ansible_user }}"
+    mode: 0644
+
+- name: Set controller IP in kubeconfig
+  replace:
+    path: ~{{ ansible_user }}/k0s-kubeconfig.yml
+    regexp: 'localhost'
+    replace: "{{ ansible_host }}"
