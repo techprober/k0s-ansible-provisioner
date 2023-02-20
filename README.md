@@ -36,7 +36,8 @@ ansible-playbook -i ./inventory/single-node.yml provision.yml
 
 ## References
 
-- [movd/k0s-ansible](https://github.com/movd/k0s-ansible)
+- [GitHub - movd/k0s-ansible](https://github.com/movd/k0s-ansible)
+- [GitHub Proxy](https://ghproxy.com/)
 
 ## License
 
