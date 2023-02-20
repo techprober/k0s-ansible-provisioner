@@ -19,6 +19,21 @@ Maintainers: [ Kevin Yu (@yqlbu) ](https://github.com/yqlbu), [ Shi Kun (@kunish
 
 This repo serves to provide the end-users a way to provision a Kubernetes Cluster in minutes. Multiple mode are supported, including HA setup.
 
+## Usage
+
+**Provision Cluster**
+
+```bash
+ansible-playbook -i ./inventory/single-node.yml provision.yml
+
+```
+
+**Reset Cluster**
+
+```bash
+ansible-playbook -i ./inventory/single-node.yml provision.yml
+```
+
 ## References
 
 - [movd/k0s-ansible](https://github.com/movd/k0s-ansible)
