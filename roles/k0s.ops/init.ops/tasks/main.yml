@@ -3,5 +3,5 @@
   when: not single_node
 - include_tasks: init_single_node.yml
   when: single_node
-- include_tasls: init-cni.yml
+- include_tasks: init-cni.yml
   when: cni is defined
