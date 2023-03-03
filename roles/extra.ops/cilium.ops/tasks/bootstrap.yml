@@ -1,0 +1,13 @@
+---
+name: Transfer bootstrap script to host
+ansible.builtin.template:
+  src: bootstrap.j2
+  dest: "{{ k0s_config_dir }}/bootstrap.sh"
+  owner: "{{ ansible_user }}"
+  group: "{{ ansible_user }}"
+  mode: 0600
+become: true
+
+name: Install Cilium with CLI
+ansible.builtin.script: "sh {{ k0s_config_dir }}/bootstrap.sh"
+become: true
