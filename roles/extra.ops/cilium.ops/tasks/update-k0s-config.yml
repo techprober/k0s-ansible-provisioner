@@ -1,0 +1,9 @@
+---
+- name: Update default k0s config file
+  block:
+    - name: Disable kube-proxy
+      ansible.builtin.shell: |
+        "sed -i {{ k0s_config_dir }}/k0s.yaml -e '/kubeProxy:/a \ \ \ \ \ \ disabled:\ true'"
+    - name: Set CNI provider to custom
+      ansible.builtin.shell: |
+        "sed -i {{ k0s_config_dir }}/k0s.yaml -e 's/provider:\ kuberouter/provider:\ custom/g'"
