@@ -1,0 +1,11 @@
+---
+name: Install CNI solution
+block:
+  - name: Check if Cilium CLI is present on the node
+    command: "command -v cilium"
+    register: is_present
+
+  - name: Install Cilum with Cilium CLI
+    ansible.builtin.command: "cilium install"
+    when: is_present
+when: cni == "cilium"
