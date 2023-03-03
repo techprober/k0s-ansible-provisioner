@@ -1,9 +1,12 @@
 ---
 # custom config
-k0s_use_custom_config: false
+k0s_use_custom_config: true
 # single_node
 single_node: true
 init_extra_args: "--single"
+
+# cni solution of choice
+cni: "cilium"
 
 # provision, reset
 context_name: staging
