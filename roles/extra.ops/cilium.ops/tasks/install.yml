@@ -1,11 +1,12 @@
 ---
 - name: Transfer bootstrap script to host
   ansible.builtin.template:
-    src: bootstrap.j2
+    # must use absolute path
+    src: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/files/bootstrap.sh.j2"
     dest: "{{ k0s_config_dir }}/bootstrap.sh"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0600
+    mode: 0644
 
 - name: Install Cilium CLI
-  ansible.builtin.script: "sh {{ k0s_config_dir }}/bootstrap.sh"
+  ansible.builtin.command: "sh {{ k0s_config_dir }}/bootstrap.sh"

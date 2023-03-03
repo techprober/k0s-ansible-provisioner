@@ -1,8 +1,6 @@
 ---
 - name: Generate default k0s config file
-  become: true
-  command: k0s config create > {{ k0s_config_dir }}/k0s.yaml
-  register: default_k0s_config
+  ansible.builtin.command: k0s config create > {{ k0s_config_dir }}/k0s.yaml
 
 - name: Apply changes to default k0s config for Cilium
   include_tasks: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/update-k0s-config.yml"
@@ -16,4 +14,4 @@
     content: "{{ default_k0s_config.stdout }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0600
+    mode: 0644

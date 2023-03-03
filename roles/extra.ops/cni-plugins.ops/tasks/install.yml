@@ -1,5 +1,5 @@
 ---
-- name: Check of cni-plugins already installed
+- name: Check if cni-plugins already installed
   stat:
     path: /opt/cni/bin/*
   register: is_cni_plugins_installed
@@ -31,7 +31,7 @@
     - name: Extract cni-plugin binaries
       shell: "tar xzvf /opt/cni/bin/cni-plugins.tgz -C /opt/cni/bin/"
 
-    - name: Change ownership and permission for /opt/cni/bin
+    - name: Change ownership and permission of /opt/cni/bin
       file:
         path: /opt/cni/bin/
         owner: "{{ ansible_user }}"

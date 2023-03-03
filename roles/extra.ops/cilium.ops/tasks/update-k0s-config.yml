@@ -1,9 +1,14 @@
 ---
 - name: Update default k0s config file
   block:
-    - name: Disable kube-proxy
-      ansible.builtin.shell: |
-        "sed -i {{ k0s_config_dir }}/k0s.yaml -e '/kubeProxy:/a \ \ \ \ \ \ disabled:\ true'"
-    - name: Set CNI provider to custom
-      ansible.builtin.shell: |
-        "sed -i {{ k0s_config_dir }}/k0s.yaml -e 's/provider:\ kuberouter/provider:\ custom/g'"
+    - name: Transfer patch script to host
+      ansible.builtin.template:
+        # must use absolute path
+        src: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/templates/patch.sh.j2"
+        dest: "{{ k0s_config_dir }}/patch.sh"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0644
+
+    - name: Apply patches to the default k0s config
+      ansible.builtin.command: "sh {{ k0s_config_dir }}/patch.sh"
