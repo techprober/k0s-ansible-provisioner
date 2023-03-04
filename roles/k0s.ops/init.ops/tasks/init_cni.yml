@@ -2,6 +2,7 @@
 - name: Install CNI solution
   block:
   - name: Include Cilium install task
+    # must use absolute path
     include_tasks: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/install.yml"
     when:
       - k0s_use_custom_config
