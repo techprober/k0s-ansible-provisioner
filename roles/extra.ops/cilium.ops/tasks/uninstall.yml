@@ -1,0 +1,5 @@
+---
+- name: Remove Cilium binary
+  file:
+    path: "/usr/local/bin/cilium"
+    state: absent

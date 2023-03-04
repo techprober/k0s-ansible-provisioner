@@ -1,0 +1,14 @@
+---
+- name: Update default k0s config file
+  block:
+    - name: Transfer patch script to host
+      template:
+        # must use absolute path
+        src: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/templates/patch.sh.j2"
+        dest: "{{ k0s_config_dir }}/patch.sh"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0644
+
+    - name: Apply patches to the default k0s config
+      command: "sh {{ k0s_config_dir }}/patch.sh"

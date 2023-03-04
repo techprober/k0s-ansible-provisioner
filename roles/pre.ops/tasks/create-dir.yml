@@ -1,5 +1,5 @@
 ---
-- name: Create k0s Directories
+- name: Create k0s directories
   become: true
   file:
     path: "{{ item }}"

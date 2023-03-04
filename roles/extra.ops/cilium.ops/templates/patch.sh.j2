@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# set cni-provider to custom
+sed -i {{ k0s_config_dir }}/k0s.yaml -e 's/provider:\ kuberouter/provider:\ custom/g'
+
+# disable kube-proxy
+sed -i {{ k0s_config_dir }}/k0s.yaml -e '/kubeProxy:/a \ \ \ \ \ \ disabled:\ true'

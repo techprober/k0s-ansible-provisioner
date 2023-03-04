@@ -1,5 +1,7 @@
 ---
-- include_tasks: init.yml
+- include_tasks: ./init.yml
   when: not single_node
-- include_tasks: init_single_node.yml
+- include_tasks: ./init_single_node.yml
   when: single_node
+# - include_tasks: ./init_cni.yml
+#   when: cni is defined

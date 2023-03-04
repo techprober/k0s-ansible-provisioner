@@ -1,16 +1,21 @@
 ---
+single_node: false
+
 # custom config
 k0s_use_custom_config: true
-# init_extra_args: "--disable-components kube-proxy"
 
 # HA config
 loadbalancer_host: 10.140.40.119
 
+# cni solution of choice
+cni: "cilium"
+
 # provision, reset
-context_name: staging
-k0s_version: v1.23.6+k0s.0
+context_name: prod
+k0s_version: v1.26.1+k0s.0
 k0s_binary_path: /usr/local/bin/k0s
 k0s_config_dir: /etc/k0s
+kube_dir: "/home/{{ ansible_user }}/.kube"
 k0s_data_dir: /var/lib/k0s
 k0s_libexec_dir: /usr/libexec/k0s/
 systemd_dest: /etc/systemd/system

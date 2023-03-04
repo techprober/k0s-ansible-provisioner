@@ -1,3 +1,5 @@
 ---
 - include_tasks: create-dir.yml
+  when: cni != "cilium"
 - include_tasks: install.yml
+  when: cni != "cilium"

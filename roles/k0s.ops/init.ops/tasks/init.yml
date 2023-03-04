@@ -25,7 +25,7 @@
   wait_for:
     host: localhost
     port: 6443
-    delay: 15
+    delay: 120
     timeout: 180
 
 - name: Create worker join token
@@ -38,7 +38,7 @@
     join_token_worker: "{{ worker_join_token.stdout }}"
     cacheable: yes
 
-- name: Add k0s worker token to dummy host
+- name: Add k0s worker token to host
   add_host:
     name: "worker_token_holder"
     token: "{{ worker_join_token.stdout }}"
@@ -57,7 +57,7 @@
     join_token_controller: "{{ controller_join_token.stdout }}"
     cacheable: yes
 
-- name: Add k0s controller token to dummy host
+- name: Add k0s controller token to host
   add_host:
     name: "controller_token_holder"
     token: "{{ controller_join_token.stdout }}"
@@ -69,13 +69,19 @@
 - name: Copy config file to user home directory
   copy:
     src: "{{ k0s_data_dir }}/pki/admin.conf"
-    dest: ~{{ ansible_user }}/k0s-kubeconfig.yml
+    dest: "{{ item }}"
     remote_src: yes
     owner: "{{ ansible_user }}"
     mode: 0644
+  loop:
+    - "{{ kube_dir }}/config"
+    - "/root/.kube/config"
 
 - name: Set controller IP in kubeconfig
   replace:
-    path: ~{{ ansible_user }}/k0s-kubeconfig.yml
+    dest: "{{ item }}"
     regexp: 'localhost'
     replace: "{{ ansible_host }}"
+  loop:
+    - "{{ kube_dir }}/config"
+    - "/root/.kube/config"

@@ -1,25 +1,32 @@
 ---
-- name: Write the custom k0s config file
-  template:
-    src: k0s.yaml.j2
-    dest: "{{ k0s_config_dir }}/k0s.yaml"
+- name: Create kubeconfig dir
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0600
-  when: k0s_use_custom_config
+  loop:
+    - "{{ kube_dir }}"
+    - "/root/.kube"
 
-- name: Generate default k0s config file
-  become: true
+- name: Prepare default k0s config
   block:
-    - name: Create default k0s config
-      command: k0s config create > {{ k0s_config_dir }}/k0s.yaml
-      register: default_k0s_config
+  - name: Generate default k0s config file
+    command: k0s config create > {{ k0s_config_dir }}/k0s.yaml
+    register: default_k0s_config
 
-    - name: Store default k0s config
-      ansible.builtin.copy:
-        dest: "{{ k0s_config_dir }}/k0s.yaml"
-        content: "{{ default_k0s_config.stdout }}"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        mode: 0600
-  when: not k0s_use_custom_config
+  - name: Store default k0s config
+    copy:
+      dest: "{{ k0s_config_dir }}/k0s.yaml"
+      content: "{{ default_k0s_config.stdout }}"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: 0644
+
+- name: Apply changes to default k0s config for Cilium
+  include_tasks: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/update-k0s-config.yml"
+  when:
+    - k0s_use_custom_config
+    - cni == "cilium"

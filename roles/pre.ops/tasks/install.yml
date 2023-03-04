@@ -8,14 +8,14 @@
       check_mode: false
       no_log: true
 
-    - name: Check if /etc/k0s already exists
+    - name: Check if k0s_dir already exists
       stat:
         path: "{{ k0s_config_dir }}"
       register: is_k0s_config_exists
       check_mode: false
       failed_when: not is_k0s_config_exists.stat.exists
 
-    - name: Check if /var/lib/k0s already exists
+    - name: Check if k0s_data_dir already exists
       stat:
         path: "{{ k0s_data_dir }}"
       register: is_k0s_data_exists
