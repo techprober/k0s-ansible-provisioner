@@ -4,9 +4,6 @@ single_node: false
 # custom config
 k0s_use_custom_config: true
 
-# HA config
-loadbalancer_host: 10.140.40.119
-
 # cni solution of choice
 cni: "cilium"
 

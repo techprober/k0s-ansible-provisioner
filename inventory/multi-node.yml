@@ -1,0 +1,25 @@
+---
+ha:
+  children:
+    initial_controller:
+      hosts:
+        prod-k8s-master-1:
+    worker:
+      hosts:
+        prod-k8s-worker-1:
+        prod-k8s-worker-2:
+        prod-k8s-worker-3:
+
+  hosts:
+    prod-k8s-master-1:
+      ansible_host: 10.140.40.101
+    prod-k8s-worker-1:
+      ansible_host: 10.140.40.111
+    prod-k8s-worker-2:
+      ansible_host: 10.140.40.112
+    prod-k8s-worker-3:
+      ansible_host: 10.140.40.113
+
+  vars:
+    ansible_user: packer
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa_yubikey.pub
