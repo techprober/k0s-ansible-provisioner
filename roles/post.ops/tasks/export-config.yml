@@ -8,4 +8,8 @@
 
 - name: "print kubeconfig command"
   debug:
-    msg: "To use Cluster: export KUBECONFIG={{ artifacts_dir }}/{{ context_name }}-k0s-config"
+    msg: |
+      "To access the cluster, do the followings
+
+      export KUBECONFIG={{ artifacts_dir }}/{{ context_name }}-k0s-config"
+      cp artifacts/{{ context_name }}-k0s-config ~/.kube/config
