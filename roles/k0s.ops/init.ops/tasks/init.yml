@@ -38,7 +38,7 @@
     join_token_worker: "{{ worker_join_token.stdout }}"
     cacheable: yes
 
-- name: Add k0s worker token to dummy host
+- name: Add k0s worker token to host
   add_host:
     name: "worker_token_holder"
     token: "{{ worker_join_token.stdout }}"
@@ -57,7 +57,7 @@
     join_token_controller: "{{ controller_join_token.stdout }}"
     cacheable: yes
 
-- name: Add k0s controller token to dummy host
+- name: Add k0s controller token to host
   add_host:
     name: "controller_token_holder"
     token: "{{ controller_join_token.stdout }}"

@@ -56,6 +56,16 @@
     - worker-ops
     when: not single_node
 
+- name: Install custom CNI solution
+  hosts: initial_controller
+  become: yes
+
+  tasks:
+    - include_tasks: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/install.yml"
+      when:
+        - k0s_use_custom_config
+        - cni == "cilium"
+
 - name: Export k0s kubeconfig
   hosts: initial_controller
 
