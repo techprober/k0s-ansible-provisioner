@@ -1,12 +1,25 @@
 ---
-- name: Transfer bootstrap script to host
-  ansible.builtin.template:
-    # must use absolute path
-    src: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/files/bootstrap.sh.j2"
-    dest: "{{ k0s_config_dir }}/bootstrap.sh"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: 0644
+- name: Bootstrap Cilium Environment
+  block:
+    - name: Transfer bootstrap script to host
+      template:
+        # must use absolute path
+        src: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/files/bootstrap.sh.j2"
+        dest: "{{ k0s_config_dir }}/bootstrap.sh"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0644
 
-- name: Install Cilium CLI
-  ansible.builtin.command: "sh {{ k0s_config_dir }}/bootstrap.sh"
+    - name: Install Cilium CLI
+      command: "sh {{ k0s_config_dir }}/bootstrap.sh"
+
+    - name: Check if Cilium CLI is present on the node
+      command: "which cilium"
+      ignore_errors: true
+      register: is_present
+
+    - name: Install Cilum with Cilium CLI
+      command: "cilium install"
+      environment:
+        KUBECONFIG: "{{ kube_dir }}/config"
+      when: is_present

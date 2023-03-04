@@ -25,19 +25,25 @@
   wait_for:
     host: localhost
     port: 6443
-    delay: 15
+    delay: 120
     timeout: 180
 
 - name: Copy config file to user home directory
   copy:
     src: "{{ k0s_data_dir }}/pki/admin.conf"
-    dest: ~{{ ansible_user }}/k0s-kubeconfig.yml
+    dest: "{{ item }}"
     remote_src: yes
     owner: "{{ ansible_user }}"
     mode: 0644
+  loop:
+    - "{{ kube_dir }}/config"
+    - "/root/.kube/config"
 
 - name: Set controller IP in kubeconfig
   replace:
-    path: ~{{ ansible_user }}/k0s-kubeconfig.yml
+    dest: "{{ item }}"
     regexp: 'localhost'
     replace: "{{ ansible_host }}"
+  loop:
+    - "{{ kube_dir }}/config"
+    - "/root/.kube/config"

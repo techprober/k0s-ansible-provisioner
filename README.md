@@ -18,6 +18,13 @@ Maintainers: [ Kevin Yu (@yqlbu) ](https://github.com/yqlbu), [ Shi Kun (@kunish
 
 This repo serves to provide the end-users a way to provision a Kubernetes Cluster in minutes. Multiple mode are supported, including HA setup.
 
+## Prerequisites
+
+
+```bash
+ansible-galaxy collection install -r requirements.txt
+```
+
 ## Usage
 
 **Provision Cluster**
