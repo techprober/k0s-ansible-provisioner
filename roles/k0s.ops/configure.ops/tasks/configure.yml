@@ -1,4 +1,16 @@
 ---
+- name: Create kubeconfig dir
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  loop:
+    - "{{ kube_dir }}"
+    - "/root/.kube"
+
 - name: Prepare default k0s config
   block:
   - name: Generate default k0s config file

@@ -1,5 +1,5 @@
 ---
-- name: Create k0s Directories
+- name: Create k0s directories
   become: true
   file:
     path: "{{ item }}"
@@ -11,5 +11,3 @@
     - "{{ k0s_config_dir }}"
     - "{{ k0s_data_dir }}"
     - "{{ k0s_libexec_dir }}"
-    - "{{ kube_dir }}"
-    - "/root/.kube"
