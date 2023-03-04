@@ -30,20 +30,8 @@
     - "{{ systemd_dest }}/k0scontroller.service"
     - "{{ systemd_dest }}/k0sworker.service"
 
-- name: Remove extra directories
-  file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - "{{ cni_plugins_dir }}"
-    - "{{ cni_config_dir }}"
-
-- name: Remove extra binaries
-  include_tasks: "{{ item }}"
-  loop:
-    - "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/uninstall.yml"
-  when:
-    - cni is defined
+- name: Uninstall CNI
+  include_tasks: uninstall-cni.yml
 
 - name: Remove artifacts
   delegate_to: localhost

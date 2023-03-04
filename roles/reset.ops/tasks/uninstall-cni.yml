@@ -1,0 +1,8 @@
+---
+- name: Remove extra directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ cni_plugins_dir }}"
+    - "{{ cni_config_dir }}"

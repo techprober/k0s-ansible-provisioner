@@ -1,8 +1,21 @@
 ---
-- hosts: all
+- name: Uninstall custom CLI binaries
+  hosts: initial_controller
+  gather_facts: yes
+  become: yes
+
+  tasks:
+     - name: Uninstall custom CLI binaries
+       include_tasks: "{{ item }}"
+       loop:
+         - "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/uninstall.yml"
+       tags: reset
+
+- name: Reset cluster
+  hosts: all
   gather_facts: yes
   become: yes
 
   roles:
     - role: reset.ops/
-      tags: reset-ops
+      tags: reset
