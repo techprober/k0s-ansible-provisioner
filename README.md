@@ -31,16 +31,16 @@ ansible-galaxy collection install -r requirements.txt
 
 ```bash
 # single-node
-ansible-playbook -i ./inventory/single-node.yml provision.yml
+ansible-playbook -K -i ./inventory/single-node.yml provision.yml
 
 # multi-node
-ansible-playbook -i ./inventory/multi-node.yml provision.yml
+ansible-playbook -K -i ./inventory/multi-node.yml provision.yml
 ```
 
 **Reset Cluster**
 
 ```bash
-ansible-playbook -i ./inventory/single-node.yml reset.yml
+ansible-playbook -K -i ./inventory/single-node.yml reset.yml
 ```
 
 ## References
