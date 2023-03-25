@@ -19,7 +19,8 @@
       register: is_present
 
     - name: Install Cilum with Cilium CLI
-      command: "cilium install"
+      command: |
+        cilium install {{ cilium_extra_args }}
       environment:
         KUBECONFIG: "{{ kube_dir }}/config"
       when: is_present
