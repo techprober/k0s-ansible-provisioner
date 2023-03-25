@@ -20,7 +20,7 @@
 
     - name: Install Cilum with Cilium CLI
       command: |
-        cilium install ${{ cilium_extra_args }}
+        cilium install {{ cilium_extra_args }}
       environment:
         KUBECONFIG: "{{ kube_dir }}/config"
       when: is_present
