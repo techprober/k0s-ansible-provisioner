@@ -7,7 +7,8 @@ init_extra_args: "--single"
 
 # cni solution of choice
 cni: "cilium"
-# cilium_extra_args: "--config cluster-pool-ipv4-cidr=20.96.0.0/12"
+# reference: https://docs.cilium.io/en/stable/cmdref/cilium_config/
+cilium_extra_args: "--config cluster-pool-ipv4-cidr=10.244.0.0/12 --config ipam=cluster-pool"
 
 # provision, reset
 context_name: staging
