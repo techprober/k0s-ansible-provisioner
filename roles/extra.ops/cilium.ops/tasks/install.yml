@@ -19,7 +19,9 @@
       register: is_present
 
     - name: Install Cilum with Cilium CLI
-      command: "cilium install"
+      command: |
+        cilium config set ipam.operator.clusterPoolIPv4PodCIDR=128.0.0.0/8
+        cilium install
       environment:
         KUBECONFIG: "{{ kube_dir }}/config"
       when: is_present
