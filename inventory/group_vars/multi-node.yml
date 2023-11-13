@@ -6,6 +6,8 @@ k0s_use_custom_config: true
 
 # cni solution of choice
 cni: "cilium"
+# reference: https://docs.cilium.io/en/stable/cmdref/cilium_config/
+cilium_extra_args: "--set cluster-pool-ipv4-cidr=10.96.0.0/12"
 
 # provision, reset
 context_name: prod

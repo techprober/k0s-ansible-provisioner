@@ -9,6 +9,8 @@ loadbalancer_host: 10.140.40.119
 
 # cni solution of choice
 cni: "cilium"
+# reference: https://docs.cilium.io/en/stable/cmdref/cilium_config/
+cilium_extra_args: "--set cluster-pool-ipv4-cidr=10.96.0.0/12"
 
 # provision, reset
 context_name: prod
