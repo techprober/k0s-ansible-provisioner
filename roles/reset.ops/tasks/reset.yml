@@ -44,6 +44,7 @@
   file:
     dest: "{{ k0s_binary_path }}"
     state: absent
+  when: remove_k0s_binary | default(true)
 
 - name: daemon_reload
   systemd:

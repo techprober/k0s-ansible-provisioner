@@ -5,11 +5,14 @@
   become: yes
 
   tasks:
-     - name: Uninstall custom CLI binaries
-       include_tasks: "{{ item }}"
-       loop:
-         - "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/uninstall.yml"
-       tags: reset
+    - name: Uninstall custom CLI binaries
+      include_tasks: "{{ item }}"
+      loop:
+        - "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/uninstall.yml"
+      tags: reset
+      when:
+        - k0s_use_custom_config
+        - cni == "cilium"
 
 - name: Reset cluster
   hosts: all
@@ -19,3 +22,5 @@
   roles:
     - role: reset.ops/
       tags: reset
+      vars:
+        remove_k0s_binary: false
