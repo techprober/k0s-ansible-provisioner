@@ -11,7 +11,7 @@ cilium_extra_args: "--set cluster-pool-ipv4-cidr=10.96.0.0/12"
 
 # provision, reset
 context_name: prod
-k0s_version: v1.28.3+k0s.0
+k0s_version: v1.34.2+k0s.0
 k0s_binary_path: /usr/local/bin/k0s
 k0s_config_dir: /etc/k0s
 kube_dir: "/home/{{ ansible_user }}/.kube"

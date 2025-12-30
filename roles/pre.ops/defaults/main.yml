@@ -1,6 +1,6 @@
 ---
 kube_dir: "/home/{{ ansible_user }}/.kube"
-k0s_version: v1.23.6+k0s.0
+k0s_version: v1.34.2+k0s.0
 k0s_config_dir: /etc/k0s
 k0s_data_dir: /var/lib/k0s
 k0s_libexec_dir: /usr/libexec/k0s
