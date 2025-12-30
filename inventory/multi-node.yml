@@ -1,5 +1,5 @@
 ---
-ha:
+multi-node:
   children:
     initial_controller:
       hosts:
