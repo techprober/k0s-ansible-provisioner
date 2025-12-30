@@ -15,12 +15,13 @@
 
     - name: Check if Cilium CLI is present on the node
       command: "which cilium"
+      register: cilium_cli
       ignore_errors: true
-      register: is_present
+      changed_when: false
 
     - name: Install Cilum with Cilium CLI
-      command: |
+      shell: |
         cilium install {{ cilium_extra_args }}
       environment:
         KUBECONFIG: "{{ kube_dir }}/config"
-      when: is_present
+      when: cilium_cli.rc == 0
