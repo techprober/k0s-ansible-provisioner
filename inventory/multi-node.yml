@@ -12,14 +12,14 @@ multi-node:
 
   hosts:
     prod-k8s-master-1:
-      ansible_host: 10.140.40.101
+      ansible_host: 10.119.23.101
     prod-k8s-worker-1:
-      ansible_host: 10.140.40.111
+      ansible_host: 10.119.23.111
     prod-k8s-worker-2:
-      ansible_host: 10.140.40.112
+      ansible_host: 10.119.23.112
     prod-k8s-worker-3:
-      ansible_host: 10.140.40.113
+      ansible_host: 10.119.23.113
 
   vars:
-    ansible_user: packer
+    ansible_user: ubuntu
     ansible_ssh_private_key_file: ~/.ssh/id_rsa_yubikey.pub

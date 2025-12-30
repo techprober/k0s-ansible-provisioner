@@ -11,3 +11,4 @@
     - "{{ k0s_config_dir }}"
     - "{{ k0s_data_dir }}"
     - "{{ k0s_libexec_dir }}"
+    - "{{ kubelet_plugin_dir }}"
