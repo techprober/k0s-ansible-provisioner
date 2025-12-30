@@ -13,17 +13,19 @@
 
 - name: Prepare default k0s config
   block:
-  - name: Generate default k0s config file
-    command: k0s config create > {{ k0s_config_dir }}/k0s.yaml
-    register: default_k0s_config
+    - name: Generate default k0s config file
+      shell: |
+        sudo k0s config create | tee {{ k0s_config_dir }}/k0s.yaml
+      register: default_k0s_config
+      become: true
 
-  - name: Store default k0s config
-    copy:
-      dest: "{{ k0s_config_dir }}/k0s.yaml"
-      content: "{{ default_k0s_config.stdout }}"
-      owner: "{{ ansible_user }}"
-      group: "{{ ansible_user }}"
-      mode: 0644
+    - name: Store default k0s config
+      copy:
+        dest: "{{ k0s_config_dir }}/k0s.yaml"
+        content: "{{ default_k0s_config.stdout }}"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0644
 
 - name: Apply changes to default k0s config for Cilium
   include_tasks: "{{ playbook_dir }}/roles/extra.ops/cilium.ops/tasks/update-k0s-config.yml"
