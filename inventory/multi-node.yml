@@ -3,22 +3,22 @@ multi-node:
   children:
     initial_controller:
       hosts:
-        prod-k8s-master-1:
+        staging-k8s-master-1:
     worker:
       hosts:
-        prod-k8s-worker-1:
-        prod-k8s-worker-2:
-        prod-k8s-worker-3:
+        staging-k8s-worker-1:
+        staging-k8s-worker-2:
+        staging-k8s-worker-3:
 
   hosts:
-    prod-k8s-master-1:
-      ansible_host: 10.119.23.101
-    prod-k8s-worker-1:
-      ansible_host: 10.119.23.111
-    prod-k8s-worker-2:
-      ansible_host: 10.119.23.112
-    prod-k8s-worker-3:
-      ansible_host: 10.119.23.113
+    staging-k8s-master-1:
+      ansible_host: 10.119.23.151
+    staging-k8s-worker-1:
+      ansible_host: 10.119.23.161
+    staging-k8s-worker-2:
+      ansible_host: 10.119.23.162
+    staging-k8s-worker-3:
+      ansible_host: 10.119.23.163
 
   vars:
     ansible_user: ubuntu
